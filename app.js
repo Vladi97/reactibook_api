@@ -2,12 +2,18 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const morgan = require('morgan');
 
 //import ROUTES
 app.use(bodyParser.json());
 
-mongoose.connect(process.env.DB_CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb+srv://freeway:' + 
+process.env.DB_CONNECTION +
+'@cluster0-y45xa.mongodb.net/reactibook?retryWrites=true&w=majority',{useNewUrlParser: true, useUnifiedTopology: true}
+);
 mongoose.Promise = global.Promise;
+
+app.use(morgan('dev'));
 
 app.use((re, res, next) => {
     const error = new Error('Not Found');

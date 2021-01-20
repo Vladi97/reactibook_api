@@ -1,4 +1,4 @@
-const PostModel = require('../models/post');
+const PostModel = require('../model/post');
 const mongoose = require('mongoose');
 
 exports.get_all = (req, res, next) => {
