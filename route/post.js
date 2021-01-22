@@ -1,6 +1,6 @@
 const express = require("express");
 const PostController = require("../controller/post");
-//const checkAuth = require('../middleware/check-out');
+const checkAuth = require('../middleware/check-out');
 
 const router = express.Router();
 

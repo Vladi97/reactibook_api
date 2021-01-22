@@ -10,7 +10,7 @@ exports.get_all = (req, res, next) => {
           posts: docs.map(doc => {
               return {
                 details: doc.details,
-                image: doc.image ? doc.image : '',
+                uid: doc.uid,
                 date: doc.date,
                 _id: doc._id
               }
@@ -24,10 +24,11 @@ exports.get_all = (req, res, next) => {
 }
 
 exports.create_post = (req, res, next) => {
+    console.log(req.body);
     const newPost = new PostModel({
         _id: new mongoose.Types.ObjectId(),
         details: req.body.details,
-        image: req.file.path
+        uid: req.body.uid
     });
     newPost.save()
     .then(result => {
@@ -36,8 +37,8 @@ exports.create_post = (req, res, next) => {
             createdNew: {
                 _id: result._id,
                 details: result.details,
-                image: result.image,
                 date: result.date,
+                uid: result.uid
             }
         });
     })
