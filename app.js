@@ -6,6 +6,7 @@ const morgan = require("morgan");
 const postRoutes = require("./route/post");
 const cors = require('cors');
 
+app.use('/images' , express.static('images'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
@@ -22,7 +23,6 @@ mongoose.connect(
 mongoose.Promise = global.Promise;
 
 app.use(morgan("dev"));
-app.use('/images' , express.static('images'));
 
 app.use((re, res, next) => {
   const error = new Error("Not Found");
