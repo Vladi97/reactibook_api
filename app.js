@@ -22,6 +22,7 @@ mongoose.connect(
 mongoose.Promise = global.Promise;
 
 app.use(morgan("dev"));
+app.use('/images' , express.static('images'));
 
 app.use((re, res, next) => {
   const error = new Error("Not Found");
