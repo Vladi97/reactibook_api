@@ -58,7 +58,7 @@ exports.create_post = (req, res, next) => {
 
 exports.get_post = (req, res, next) => {
   PostModel.find({ uid: req.params.uId })
-    .sort({ date: -1 })
+    .sort({ date: "desc" })
     .exec()
     .then((doc) => {
       if (doc) {
