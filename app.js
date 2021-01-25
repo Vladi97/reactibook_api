@@ -12,7 +12,8 @@ app.use(cors());
 
 //import ROUTES
 app.use("/post", postRoutes);
-app.use('/images' , express.static('./dist/reactibook_api/images'));
+app.use(morgan("dev"));
+app.use('/images' , express.static('images'));
 
 mongoose.connect(
   "mongodb+srv://freeway:" +
@@ -21,8 +22,6 @@ mongoose.connect(
   { useNewUrlParser: true, useUnifiedTopology: true }
 );
 mongoose.Promise = global.Promise;
-
-app.use(morgan("dev"));
 
 app.use((re, res, next) => {
   const error = new Error("Not Found");
