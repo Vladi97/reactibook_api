@@ -6,13 +6,13 @@ const morgan = require("morgan");
 const postRoutes = require("./route/post");
 const cors = require('cors');
 
-app.use('/images' , express.static('images'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
 //import ROUTES
 app.use("/post", postRoutes);
+app.use('/images' , express.static('images'));
 
 mongoose.connect(
   "mongodb+srv://freeway:" +
