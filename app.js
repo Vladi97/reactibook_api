@@ -12,7 +12,7 @@ app.use(cors());
 
 //import ROUTES
 app.use("/post", postRoutes);
-app.use('/images' , express.static('images'));
+app.use('/images' , express.static('./dist/reactibook_api/images'));
 
 mongoose.connect(
   "mongodb+srv://freeway:" +
