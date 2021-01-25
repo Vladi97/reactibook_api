@@ -12,10 +12,14 @@ exports.get_all = (req, res, next) => {
                 details: doc.details,
                 uid: doc.uid,
                 date: doc.date,
+                email: doc.email,
+                image: doc.image.replace('\\', '/'),
+                privacy: doc.privacy,
                 _id: doc._id
               }
           })
       };
+      console.log(response);
         res.status(200).json(response);
     })
     .catch(err => {
@@ -24,11 +28,13 @@ exports.get_all = (req, res, next) => {
 }
 
 exports.create_post = (req, res, next) => {
-    console.log(req.body);
     const newPost = new PostModel({
         _id: new mongoose.Types.ObjectId(),
         details: req.body.details,
-        uid: req.body.uid
+        uid: req.body.uid,
+        email: req.body.email,
+        privacy: req.body.privacy,
+        image: req.file.path
     });
     newPost.save()
     .then(result => {
@@ -38,7 +44,10 @@ exports.create_post = (req, res, next) => {
                 _id: result._id,
                 details: result.details,
                 date: result.date,
-                uid: result.uid
+                uid: result.uid,
+                email: result.email,
+                image: result.image,
+                privacy: result.privacy
             }
         });
     })
@@ -48,13 +57,18 @@ exports.create_post = (req, res, next) => {
 }
 
 exports.get_post = (req, res, next) => {
-    const id = req.params.postId;
-    PostModel.findById(id)
+    PostModel.find({uid: req.params.uId}).sort({'date': 'desc'})
     .exec()
     .then(doc => {
         if (doc) {
             res.status(200).json({
-                post: doc
+                details: doc.details,
+                uid: doc.uid,
+                date: doc.date,
+                email: doc.email,
+                image: doc.image.replace('\\', '/'),
+                privacy: doc.privacy,
+                _id: doc._id
             });
         }else{
            res.status(404).json({message: 'No valid entry for provided ID'});
@@ -67,11 +81,11 @@ exports.get_post = (req, res, next) => {
 
 exports.update_post = (req, res, next) => {
     const id = req.params.postId;
-    const updateOps = {};
-    for (const ops of req.body) {
-        updateOps[ops.propName] = ops.value;
-    }
-    PostModel.update({ _id: id}, { $set: updateOps })
+    // const updateOps = {};
+    // for (const ops of req.body) {
+    //     updateOps[ops.propName] = ops.value;
+    // }
+    PostModel.update({ _id: id}, { details: req.body.details })
     .exec()
     .then(result => {
         res.status(200).json(result);

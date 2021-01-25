@@ -15,6 +15,14 @@ const postSchema = new mongoose.Schema({
         type: String,
         default: Date(Date.now()).toString()
     },
+    email: {
+        type: String,
+        require: true
+    },
+    privacy: {
+        type: String,
+        require: true
+    },
     uid: {
         type: String,
         require: true
