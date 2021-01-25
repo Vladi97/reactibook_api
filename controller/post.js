@@ -13,7 +13,7 @@ exports.get_all = (req, res, next) => {
                 uid: doc.uid,
                 date: doc.date,
                 email: doc.email,
-                image: doc.image.replace('\\', '/'),
+                image: doc.image,
                 privacy: doc.privacy,
                 _id: doc._id
               }
@@ -34,7 +34,7 @@ exports.create_post = (req, res, next) => {
         uid: req.body.uid,
         email: req.body.email,
         privacy: req.body.privacy,
-        image: req.file.path
+        image: req.file ? req.file.path.replace("\\", "/") : ""
     });
     newPost.save()
     .then(result => {
@@ -62,13 +62,7 @@ exports.get_post = (req, res, next) => {
     .then(doc => {
         if (doc) {
             res.status(200).json({
-                details: doc.details,
-                uid: doc.uid,
-                date: doc.date,
-                email: doc.email,
-                image: doc.image.replace('\\', '/'),
-                privacy: doc.privacy,
-                _id: doc._id
+                post: doc
             });
         }else{
            res.status(404).json({message: 'No valid entry for provided ID'});

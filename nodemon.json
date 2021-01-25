@@ -1,0 +1,6 @@
+{
+    "env": {
+        "DB_CONNECTION": "yYUXHB684OmnePKw",
+        "GOOGLE_APPLICATION_CREDENTIALS": "firebase-adminsdk-xwyqz@reactibook-auth-test.iam.gserviceaccount.com"
+    }
+}
